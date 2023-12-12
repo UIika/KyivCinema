@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<meta name="description" content="Зв'яжіться з нами для отримання додаткової інформації про адресу, телефон та робочі години Київського Кінотеатру.">
+<meta name="keywords" content="Київський Кінотеатр, адреса, телефон, робочі години, контактна інформація">
+{% endblock meta %}
+
+{% block content %}
+<br><br>
+<div class="d-flex justify-content-center">
+    <div class="row">
+        <div href="" class="col-4">
+            <a href="#">
+                <img src="{% static 'images/ct-telegram.svg' %}" width="60">
+            </a>
+        </div>
+        <div href="" class="col-4">
+            <a href="#">
+                <img src="{% static 'images/ct-viber.svg' %}" width="60">
+            </a>
+        </div>
+        <div href="" class="col-4">
+            <a href="#">
+                <img src="{% static 'images/ct-messenger.svg' %}" width="60">
+            </a>
+        </div>
+    </div>
+</div>
+<br>
+<div class="d-flex justify-content-center">
+    <h3><a href="#">kyivcinema@gmail.com</a></h3>
+</div>
+<br>
+<div class="d-flex justify-content-center">
+    <h3><a href="#">+38 123 456 7890</a></h3>
+</div>
+<br>
+<div class="d-flex justify-content-center">
+    <div>
+        Графік роботи контакт-центру (клієнтської підтримки):<br> Понеділок-четвер - з&nbsp;9:00 до 21:00<br>
+        П'ятниця-неділя - з 9:00 до 22:00&nbsp;<br>Купуйте онлайн квитки у кіно цілодобово<br><strong>Безкоштовно по Україні з будь-якого номеру</strong>
+    </div>
+</div>
+{% endblock content %}

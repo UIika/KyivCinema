@@ -1,0 +1,89 @@
+{% load static %}
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-info">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'home' %}">
+      <img src="{% static 'images/logo.png' %}" width="28" height="28" class="d-inline-block align-text-top">
+      Київський Кінотеатр
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Головна</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'contacts' %}">Контакти</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'about' %}">Про Нас</a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <form method="post" action="{% url "logout" %}" id="logoutform">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <a type="submit" id="logoutbtn" class="nav-link" aria-current="page">Вийти</a>
+          </form>
+          <script>
+            document.getElementById("logoutbtn").onclick = function () {
+              document.getElementById("logoutform").submit();
+            }
+          </script>
+        </li>
+        {% else %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Увійти
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+            <form method="post" action="{% url "login" %}">
+              {% csrf_token %}
+              <input type="hidden" name="next" value="{{ request.path }}">
+              <div class="m-2">
+                <label class="form-label">Ім'я користувача</label>
+                <input type="text" class="form-control" aria-describedby="emailHelp" name="username">
+              </div>
+              <div class="m-2">
+                <label class="form-label">Пароль</label>
+                <input type="password" class="form-control" name="password">
+              </div>
+              <button type="submit" class="btn btn-info m-2">Увійти</button>
+            </form>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{% url 'signup' %}">Реєстрація</a>
+        </li>
+        {% endif %}
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+            <input class="form-control nav-link live-search-box" id="search" type="search"
+                placeholder="Пошук..." aria-label="Search" style="width: 300px">
+            <ul class="dropdown-menu dropdown-menu-light live-search-list show" id="liveSearchResults"
+                hidden="false">
+                {% for m in allmovies %}
+                {% if m.title|length > 25 %}
+                <li>
+                    <a class="dropdown-item"
+                        href="{% url "movie" pk=m.id %}">{{m.title|slice:':25'}}...({{m.year}})
+                    </a>
+                </li>
+                {% else %}
+                <li>
+                    <a class="dropdown-item" href="{% url "movie" pk=m.id %}">
+                        {{m.title}} ({{m.year}})
+                    </a>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </li>
+    </ul>
+    </div>
+  </div>
+</nav>

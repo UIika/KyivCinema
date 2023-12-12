@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block meta %}
+<meta name="description" content="Розклад сеансів та онлайн-продаж квитків в Київському Кінотеатрі. Насолоджуйтеся найактуальнішими фільмами у центрі Києва. Замовляйте квитки на найочікуваніші стрічки зручно та швидко онлайн.">
+<meta name="keywords" content="Київський Кінотеатр, Київ, розклад сеансів, квитки на фільми, онлайн бронювання, кіно, розваги">
+{% endblock meta %}
+{% block content %}
+    <br>
+    <div class="row g-5 justify-content-evenly">
+        {% for movie in page_obj %}
+        <div class="col-lg-4 mt-3">
+            <div class="card text-dark border-primary">
+                <div class="row g-0">
+                    <div class="col-6 col-md-5">
+                        <a href="{% url 'movie' pk=movie.pk %}">
+                            <img src="{{movie.image}}" class="card-img img-fluid rounded" alt="...">
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-7">
+                        <div class="card-body d-flex flex-column">
+                            {% if movie.title|length > 30 %}
+                            <h5 class="card-title">{{movie.title|slice:':25'}}...</h5>
+                            {% else %}
+                            <h5 class="card-title">{{movie.title}}</h5>
+                            {% endif %}
+                            <strong><p class="card-text d-lg-none d-md-block d-xl-block d-sm-block"
+                            style="margin-bottom: 5px;">{{movie.genres}}</p></strong>
+                            <p class="card-text fs-6 d-none d-xxl-block">{{movie.description|slice:':60'}}...</p>
+                            <p class="card-text fs-6 d-none d-sm-block d-lg-none" style="mergin-bottom: 0;">
+                                {{movie.description|slice:':60'}}...</p>
+                            <a type="button" class="btn btn-outline-primary" 
+                            href="{% url 'movie' pk=movie.pk %}">
+                                Показати більше
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% include 'includes/paginator.html' %}
+{% endblock content %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<meta property="movieId" content="{{movie.pk}}">
+{% endblock meta %}
+
+{% block content %}
+<h1>{{movie.title}}</h1>
+<br>
+<div class="row row-cols-auto">
+    <div class="col">
+        <img src="/{{ movie.image }}" alt="{{ movie.title }}" class="img-fluid" width="190">
+    </div>
+    <div class="col">
+        <ul class="list-group mt-3">
+            <li class="list-group-item"><strong>Рік релізу:</strong> {{ movie.year }}</li>
+            <li class="list-group-item"><strong>Режисер:</strong> {{ movie.directors }}</li>
+            <li class="list-group-item"><strong>Жанр:</strong> {{ movie.genres }}</li>
+            <li class="list-group-item"><strong>Тривалість:</strong> {{movie.duration}} хв</li>
+            <li class="list-group-item"><strong>Рeйтинг на IMDb:</strong> {{ movie.imdb_rating }}/10</li>
+        </ul>
+        {% if user.is_authenticated %}
+        <a type="button" class="btn btn-success m-3" data-bs-toggle="modal" data-bs-target="#selectSeatModal"
+        id="buyButton"
+            href="{% url 'movie' pk=movie.pk %}">
+            Купити квиток
+        </a>
+        {% else %}
+        <a type="button" class="btn btn-info m-3" href="{% url 'signup' %}">
+            Зареєструватись
+        </a>
+        {% endif %}
+        {% include "includes/payment.html" %}
+        {% include "includes/seatselect.html" %}
+    </div>
+</div>
+<br>
+<div class="row">
+    <p class="fs-5">
+        <strong>Опис:</strong>
+        {{ movie.description }}
+    </p>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'js/buyscript.js' %}"></script>
+{% endblock content %}

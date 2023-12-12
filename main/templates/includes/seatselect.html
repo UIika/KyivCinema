@@ -1,0 +1,59 @@
+{% load static %}
+<div class="modal fade" id="selectSeatModal" tabindex="-1" aria-labelledby="selectSeatModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <head>
+        <link rel="stylesheet" href="{% static 'css/buystyle.css' %}">
+      </head>
+      <body>
+        <div class="center">
+          <div class="tickets">
+            <div class="ticket-selector">
+              <div class="seats">
+                <div class="status">
+                  <div class="item">Доступні</div>
+                  <div class="item">Заброньовані</div>
+                  <div class="item">Обрані</div>
+                </div>
+                <img src="{% static 'images/screen.png' %}" alt="screen" class="screen">
+                <div class="all-seats">
+                </div>
+              </div>
+              <input type="date" id="date">
+              <div class="timings">
+                <form id="timeForm">
+                  <div class="times">
+                    <input type="radio" name="time" id="t1" checked value="11:00:00" />
+                    <label for="t1" class="time">11:00</label>
+                    <input type="radio" id="t2" name="time" value="14:30:00" />
+                    <label for="t2" class="time"> 14:30 </label>
+                    <input type="radio" id="t3" name="time" value="18:00:00" />
+                    <label for="t3" class="time"> 18:00 </label>
+                    <input type="radio" id="t4" name="time" value="21:30:00" />
+                    <label for="t4" class="time"> 21:30 </label>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="price">
+              <div class="total">
+                <span> <span class="count">0</span> Квитки </span>
+                <div>
+                  <label class="amount">0</label>
+                  <label>грн</label>
+                </div>
+              </div>
+              <div>
+                <button type="button" class="btn btn-secondary m-3" data-bs-dismiss="modal">Скасувати</button>
+                <button id="buyButton" type="button" class="btn btn-success" data-bs-toggle="modal"
+                  data-bs-target="#paymentModal" data-bs-dismiss="modal">
+                  Купити
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </body>
+    </div>
+  </div>
+</div>
